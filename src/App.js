@@ -13,8 +13,8 @@ function App() {
       { name: 'Chicago', coordinates: '41.8781,-87.6298' },
       { name: 'Houston', coordinates: '29.7604,-95.3698' }
     ];
-    const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; // Replace 'YOUR_WEATHER_API_KEY' with your OpenWeatherMap API key
-    const trafficApiKey = 'R1t70C69lxJyezKuC4dR8eifiuLP5YoS'; // Replace 'YOUR_TRAFFIC_API_KEY' with your TomTom API key
+    const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; 
+    const trafficApiKey = 'R1t70C69lxJyezKuC4dR8eifiuLP5YoS'; 
 
     const fetchWeatherData = async (city) => {
       try {
@@ -59,7 +59,7 @@ function App() {
   return (
     <div className="bg-gray-200 min-h-screen p-4">
       <header className="text-center">
-        <h1 className="text-3xl font-bold mb-4">AccuWeather</h1>
+        <h1 className="text-3xl font-bold mb-4">Weather&Traffic</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {weatherData.map((data, index) => (
             <div key={index} className="bg-white rounded p-4 shadow">
