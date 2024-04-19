@@ -29,6 +29,11 @@ function App() {
     const fetchTrafficData = async (city) => {
       try {
         const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${trafficApiKey}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}, ${response.statusText}`);
+        }
+    
         const data = await response.json();
         return { name: city.name, traffic: data.flowSegmentData.currentSpeed };
       } catch (error) {
@@ -36,6 +41,7 @@ function App() {
         return null;
       }
     };
+    
 
     const fetchData = async () => {
       const weatherPromises = cities.map(city => fetchWeatherData(city));
