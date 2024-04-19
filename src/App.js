@@ -54,13 +54,13 @@ function App() {
         const trafficData = await Promise.all(trafficPromises);
         
         const combinedData = weatherData.map((weather, index) => {
-          if (trafficData[index]) { // Check if trafficData[index] is not null
+          if (trafficData[index]) { 
             return { ...weather, traffic: trafficData[index].traffic };
           } else {
-            return weather; // Return weather object without traffic data
+            return weather; 
           }
         });
-        setWeatherData(combinedData); // Ensure combinedData is an array
+        setWeatherData(combinedData); 
       } catch (error) {
         console.error('Error fetching data:', error);
       }
