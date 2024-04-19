@@ -28,9 +28,7 @@ function App() {
 
     const fetchTrafficData = async (city) => {
       try {
-        const trafficApiKey = 'sp63lJiSDV85PuII26DyfoszBGQ7oopD'; // Your TomTom API key
-    
-        const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${trafficApiKey}`);
+        const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=sp63lJiSDV85PuII26DyfoszBGQ7oopD`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}, ${response.statusText}`);
@@ -40,10 +38,10 @@ function App() {
         
         
         if (data && data.flowSegmentData && data.flowSegmentData.currentSpeed !== undefined) {
-     
+      
           return { name: city.name, traffic: data.flowSegmentData.currentSpeed };
         } else {
-
+          
           return { name: city.name, traffic: 'N/A' };
         }
       } catch (error) {
@@ -51,7 +49,6 @@ function App() {
         return null;
       }
     };
-    
     
 
     const fetchData = async () => {
