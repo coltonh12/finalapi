@@ -47,11 +47,12 @@ function App() {
         const trafficData = await Promise.all(trafficPromises);
         
         const combinedData = weatherData.map((weather, index) => ({ ...weather, traffic: trafficData[index].traffic }));
-        setWeatherData(combinedData);
+        setWeatherData(combinedData); // Ensure combinedData is an array
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+    
 
     fetchData();
   }, []);
