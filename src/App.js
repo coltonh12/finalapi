@@ -13,7 +13,7 @@ function App() {
       { name: 'Houston', coordinates: '29.7604,-95.3698' }
     ];
     const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; 
-    const trafficApiKey = 'R1t70C69lxJyezKuC4dR8eifiuLP5YoS'; 
+    const trafficApiKey = 'sp63lJiSDV85PuII26DyfoszBGQ7oopD'; 
 
     const fetchWeatherData = async (city) => {
       try {
