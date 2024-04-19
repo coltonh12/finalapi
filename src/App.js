@@ -1,10 +1,13 @@
-import './index.css'; 
+
+
+// App.js
+import './App.css';
 import React, { useEffect, useState } from 'react';
 
 function App() {
   const [weatherData, setWeatherData] = useState([]);
 
-  const fetchData = async () => {
+  useEffect(() => {
     const cities = [
       { name: 'Lansing', coordinates: '42.7335,-84.5555' },
       { name: 'New York', coordinates: '40.7128,-74.0060' },
@@ -14,7 +17,7 @@ function App() {
     ];
     const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; 
     const trafficApiKey = 'R1t70C69lxJyezKuC4dR8eifiuLP5YoS'; 
-  
+
     const fetchWeatherData = async (city) => {
       try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${weatherApiKey}`);
@@ -25,7 +28,7 @@ function App() {
         return null;
       }
     };
-  
+
     const fetchTrafficData = async (city) => {
       try {
         const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${trafficApiKey}`);
@@ -36,35 +39,29 @@ function App() {
         return null;
       }
     };
-  
-    const weatherPromises = cities.map(city => fetchWeatherData(city));
-    const trafficPromises = cities.map(city => fetchTrafficData(city));
-    
-    try {
-      const weatherResponse = await Promise.all(weatherPromises);
-      const trafficResponse = await Promise.all(trafficPromises);
-      
-      const combinedData = weatherResponse.map((weather, index) => ({ ...weather, traffic: trafficResponse[index].traffic }));
-      setWeatherData(combinedData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  
 
-  useEffect(() => {
+    const fetchData = async () => {
+      const weatherPromises = cities.map(city => fetchWeatherData(city));
+      const trafficPromises = cities.map(city => fetchTrafficData(city));
+      
+      try {
+        const weatherData = await Promise.all(weatherPromises);
+        const trafficData = await Promise.all(trafficPromises);
+        
+        const combinedData = weatherData.map((weather, index) => ({ ...weather, traffic: trafficData[index].traffic }));
+        setWeatherData(combinedData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
     fetchData();
   }, []);
-
-  const handleRefresh = () => {
-    fetchData();
-  };
 
   return (
     <div className="bg-gray-200 min-h-screen p-4">
       <header className="text-center">
         <h1 className="text-3xl font-bold mb-4">Weather&Traffic</h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleRefresh}>Refresh Data</button>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {weatherData.map((data, index) => (
             <div key={index} className="bg-white rounded p-4 shadow">
