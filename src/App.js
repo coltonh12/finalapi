@@ -67,17 +67,20 @@ function App() {
         <h1 className="text-3xl font-bold mb-4">Weather & Traffic</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {cityData.map((data, index) => (
-            <div key={index} className="weather-card">
-              <h2 className="text-lg font-bold mb-2">{data.name}</h2>
-              <div className="flex items-center justify-center">
-                <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
-                <p className="text-gray-700">{data.weather}</p>
-              </div>
-              <p className="text-gray-700 temperature">Temperature: {data.temperature}°C</p>
-              <p className="text-gray-700 humidity">Humidity: {data.humidity}%</p>
-              <p className="text-gray-700">Wind Speed: {data.windSpeed} m/s</p>
-              <p className="text-gray-700">Traffic: {data.traffic}</p>
-            </div>
+            // Inside the div with the class name "weather-card"
+<div key={index} className="weather-card">
+  <h2 className="text-lg font-bold mb-2">{data.name}</h2> {/* This should display the city name */}
+  <div className="flex items-center justify-center">
+    <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
+    <p className="text-gray-700">{data.weather}</p>
+  </div>
+  <p className="text-gray-700 temperature">Temperature: {data.temperature}°C</p>
+  <p className="text-gray-700 humidity">Humidity: {data.humidity}%</p>
+  <p className="text-gray-700">Wind Speed: {data.windSpeed} m/s</p>
+  <p className="text-gray-700">Traffic: {data.traffic}</p>
+</div>
+
+
           ))}
         </div>
       </header>
