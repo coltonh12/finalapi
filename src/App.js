@@ -13,7 +13,7 @@ function App() {
       { name: 'Houston', coordinates: '29.7604,-95.3698' }
     ];
     const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; 
-    const trafficApiKey = '3eQHFOMMqA3alea2DMwgzjjT4QX8Ciz1'; 
+    const trafficApiKey = 'sp63lJiSDV85PuII26DyfoszBGQ7oopD'; 
 
     const fetchWeatherData = async (city) => {
       try {
@@ -28,22 +28,19 @@ function App() {
 
     const fetchTrafficData = async (city) => {
       try {
-        const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?key=${trafficApiKey}&point=${city.coordinates}`);
-    
+        const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${trafficApiKey}`);
+        
         if (!response.ok) {
-          throw new Error(`Failed to fetch traffic data for ${city.name}. HTTP error! Status: ${response.status}, ${response.statusText}`);
+          throw new Error(`HTTP error! Status: ${response.status}, ${response.statusText}`);
         }
     
         const data = await response.json();
-        const currentSpeed = data.flowSegmentData.length > 0 ? data.flowSegmentData[0].currentSpeed : null;
-        return { name: city.name, traffic: currentSpeed };
+        return { name: city.name, traffic: data.flowSegmentData.currentSpeed };
       } catch (error) {
         console.error('Error fetching traffic data:', error);
         return null;
       }
     };
-    
-    
     
 
     const fetchData = async () => {
@@ -55,13 +52,13 @@ function App() {
         const trafficData = await Promise.all(trafficPromises);
         
         const combinedData = weatherData.map((weather, index) => {
-          if (trafficData[index]) { 
+          if (trafficData[index]) { // Check if trafficData[index] is not null
             return { ...weather, traffic: trafficData[index].traffic };
           } else {
-            return weather; 
+            return weather; // Return weather object without traffic data
           }
         });
-        setWeatherData(combinedData); 
+        setWeatherData(combinedData); // Ensure combinedData is an array
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -92,4 +89,3 @@ function App() {
 }
 
 export default App;
-
