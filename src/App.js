@@ -29,13 +29,14 @@ function App() {
     const fetchTrafficData = async (city) => {
       try {
         const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?key=${trafficApiKey}&point=${city.coordinates}`);
-        
+    
         if (!response.ok) {
           throw new Error(`Failed to fetch traffic data for ${city.name}. HTTP error! Status: ${response.status}, ${response.statusText}`);
         }
     
         const data = await response.json();
-        return { name: city.name, traffic: data.flowSegmentData.currentSpeed };
+        const currentSpeed = data.flowSegmentData.length > 0 ? data.flowSegmentData[0].currentSpeed : null;
+        return { name: city.name, traffic: currentSpeed };
       } catch (error) {
         console.error('Error fetching traffic data:', error);
         return null;
