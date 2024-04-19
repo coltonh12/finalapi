@@ -3,7 +3,7 @@ import './index.css';
 import React, { useEffect, useState } from 'react';
 
 function App() {
-  const [weatherData, setWeatherData] = useState([]);
+  const [weatherData, setWeatherData] = useState({});
 
   useEffect(() => {
     const cities = [
