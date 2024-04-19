@@ -1,5 +1,5 @@
-// App.js
-import './index.css'; // Import Tailwind CSS styles
+
+import './index.css'; 
 import React, { useEffect, useState } from 'react';
 
 function App() {
