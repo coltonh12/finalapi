@@ -1,18 +1,76 @@
+/* Reset default styles */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Body styles */
 body {
   margin: 0;
-  font-family:  'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 
-code {
-  font-family: 'Courier New',
-    monospace;
+/* Header styles */
+header {
+  background-color: #f05514;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Weather card styles */
+.weather-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.weather-card h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather-card p {
+  font-size: 16px;
+  color: #666;
+}
+
+.weather-card .temperature {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.weather-card .humidity {
+  margin-top: 10px;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+
+.button {
+  background-color: #f05514;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #d2440c;
 }
 

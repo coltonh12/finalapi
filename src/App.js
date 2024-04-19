@@ -28,6 +28,8 @@ function App() {
 
     const fetchTrafficData = async (city) => {
       try {
+        const trafficApiKey = 'sp63lJiSDV85PuII26DyfoszBGQ7oopD'; // Your TomTom API key
+    
         const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${trafficApiKey}`);
         
         if (!response.ok) {
@@ -35,12 +37,21 @@ function App() {
         }
     
         const data = await response.json();
-        return { name: city.name, traffic: data.flowSegmentData.currentSpeed };
+        
+        
+        if (data && data.flowSegmentData && data.flowSegmentData.currentSpeed !== undefined) {
+     
+          return { name: city.name, traffic: data.flowSegmentData.currentSpeed };
+        } else {
+
+          return { name: city.name, traffic: 'N/A' };
+        }
       } catch (error) {
         console.error('Error fetching traffic data:', error);
         return null;
       }
     };
+    
     
 
     const fetchData = async () => {
@@ -52,13 +63,13 @@ function App() {
         const trafficData = await Promise.all(trafficPromises);
         
         const combinedData = weatherData.map((weather, index) => {
-          if (trafficData[index]) { // Check if trafficData[index] is not null
+          if (trafficData[index]) { 
             return { ...weather, traffic: trafficData[index].traffic };
           } else {
-            return weather; // Return weather object without traffic data
+            return weather; 
           }
         });
-        setWeatherData(combinedData); // Ensure combinedData is an array
+        setWeatherData(combinedData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
