@@ -14,7 +14,7 @@ function App() {
     ];
     const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; 
     const trafficApiKey = 'R1t70C69lxJyezKuC4dR8eifiuLP5YoS'; 
-
+  
     const fetchWeatherData = async (city) => {
       try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${weatherApiKey}`);
@@ -25,7 +25,7 @@ function App() {
         return null;
       }
     };
-
+  
     const fetchTrafficData = async (city) => {
       try {
         const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${trafficApiKey}`);
@@ -36,20 +36,21 @@ function App() {
         return null;
       }
     };
-
+  
     const weatherPromises = cities.map(city => fetchWeatherData(city));
     const trafficPromises = cities.map(city => fetchTrafficData(city));
     
     try {
-      const weatherData = await Promise.all(weatherPromises);
-      const trafficData = await Promise.all(trafficPromises);
+      const weatherResponse = await Promise.all(weatherPromises);
+      const trafficResponse = await Promise.all(trafficPromises);
       
-      const combinedData = weatherData.map((weather, index) => ({ ...weather, traffic: trafficData[index].traffic }));
+      const combinedData = weatherResponse.map((weather, index) => ({ ...weather, traffic: trafficResponse[index].traffic }));
       setWeatherData(combinedData);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
