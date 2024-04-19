@@ -1,9 +1,8 @@
-
 import './index.css';
 import React, { useEffect, useState } from 'react';
 
 function App() {
-  const [weatherData, setWeatherData] = useState({});
+  const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
     const cities = [
@@ -46,14 +45,19 @@ function App() {
         const weatherData = await Promise.all(weatherPromises);
         const trafficData = await Promise.all(trafficPromises);
         
-        const combinedData = weatherData.map((weather, index) => ({ ...weather, traffic: trafficData[index].traffic }));
+        const combinedData = weatherData.map((weather, index) => {
+          if (trafficData[index]) { // Check if trafficData[index] is not null
+            return { ...weather, traffic: trafficData[index].traffic };
+          } else {
+            return weather; // Return weather object without traffic data
+          }
+        });
         setWeatherData(combinedData); // Ensure combinedData is an array
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     
-
     fetchData();
   }, []);
 
@@ -69,7 +73,7 @@ function App() {
               <p className="text-gray-700">Temperature: {data.temperature}°C</p>
               <p className="text-gray-700">Humidity: {data.humidity}%</p>
               <p className="text-gray-700">Wind Speed: {data.windSpeed} m/s</p>
-              <p className="text-gray-700">Traffic: {data.traffic} mph</p>
+              <p className="text-gray-700">Traffic: {data.traffic ? data.traffic + ' mph' : 'N/A'}</p>
             </div>
           ))}
         </div>
@@ -79,3 +83,4 @@ function App() {
 }
 
 export default App;
+
