@@ -12,7 +12,8 @@ function App() {
       { name: 'Chicago', coordinates: '41.8781,-87.6298' },
       { name: 'Houston', coordinates: '29.7604,-95.3698' }
     ];
-    const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530'; 
+
+    const weatherApiKey = '59ce3a80fe2c9388238366c9f3c48530';
     const trafficApiKey = 'sp63lJiSDV85PuII26DyfoszBGQ7oopD';
 
     const fetchData = async () => {
@@ -21,7 +22,7 @@ function App() {
         const trafficData = await fetchTrafficData(city, trafficApiKey);
         return { ...weatherData, ...trafficData };
       });
-      
+
       try {
         const cityData = await Promise.all(cityPromises);
         setCityData(cityData);
@@ -29,7 +30,7 @@ function App() {
         console.error('Error fetching data:', error);
       }
     };
-    
+
     fetchData();
   }, []);
 
@@ -37,7 +38,13 @@ function App() {
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${apiKey}`);
       const data = await response.json();
-      return { weather: data.weather[0].main, temperature: (data.main.temp - 273.15).toFixed(1), humidity: data.main.humidity, windSpeed: data.wind.speed };
+      return {
+        name: city.name, 
+        weather: data.weather[0].main,
+        temperature: (data.main.temp - 273.15).toFixed(1),
+        humidity: data.main.humidity,
+        windSpeed: data.wind.speed
+      };
     } catch (error) {
       console.error('Error fetching weather data:', error);
       return null;
@@ -47,11 +54,9 @@ function App() {
   const fetchTrafficData = async (city, apiKey) => {
     try {
       const response = await fetch(`https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=${city.coordinates}&key=${apiKey}`);
-      
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}, ${response.statusText}`);
       }
-
       const data = await response.json();
       const trafficSpeed = data.flowSegmentData.currentSpeed ? data.flowSegmentData.currentSpeed + ' mph' : 'N/A';
       return { traffic: trafficSpeed };
@@ -67,20 +72,17 @@ function App() {
         <h1 className="text-3xl font-bold mb-4">Weather & Traffic</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {cityData.map((data, index) => (
-            // Inside the div with the class name "weather-card"
-<div key={index} className="weather-card">
-  <h2 className="text-lg font-bold mb-2">{data.name}</h2> {/* This should display the city name */}
-  <div className="flex items-center justify-center">
-    <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
-    <p className="text-gray-700">{data.weather}</p>
-  </div>
-  <p className="text-gray-700 temperature">Temperature: {data.temperature}°C</p>
-  <p className="text-gray-700 humidity">Humidity: {data.humidity}%</p>
-  <p className="text-gray-700">Wind Speed: {data.windSpeed} m/s</p>
-  <p className="text-gray-700">Traffic: {data.traffic}</p>
-</div>
-
-
+            <div key={index} className="weather-card">
+              <h2 className="text-lg font-bold mb-2">{data.name}</h2> {/* This should display the city name */}
+              <div className="flex items-center justify-center">
+                <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
+                <p className="text-gray-700">{data.weather}</p>
+              </div>
+              <p className="text-gray-700 temperature">Temperature: {data.temperature}°C</p>
+              <p className="text-gray-700 humidity">Humidity: {data.humidity}%</p>
+              <p className="text-gray-700">Wind Speed: {data.windSpeed} m/s</p>
+              <p className="text-gray-700">Traffic: {data.traffic}</p>
+            </div>
           ))}
         </div>
       </header>
