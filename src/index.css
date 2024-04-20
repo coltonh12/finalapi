@@ -1,9 +1,9 @@
-/* Reset default styles */
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Body styles */
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@ body {
   font-size: 16px;
 }
 
-/* Header styles */
+
 header {
   background-color: burlywood;
   color: #fff;
@@ -24,14 +24,14 @@ h1 {
   font-weight: bold;
 }
 
-/* Weather card styles */
+
 .weather-card {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  text-align: center; /* Center the content */
+  text-align: center; 
 }
 
 .weather-card h2 {
@@ -43,7 +43,7 @@ h1 {
 .weather-card p {
   font-size: 16px;
   color: #666;
-  margin: 5px 0; /* Add some spacing between paragraphs */
+  margin: 5px 0; 
 }
 
 .weather-card .temperature {
