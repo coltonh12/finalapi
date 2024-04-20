@@ -85,7 +85,8 @@ function App() {
               <h2 className="text-lg font-bold mb-2">{data.name}</h2>
               {/* Display the city name next to the weather information */}
               <div className="flex items-center justify-center">
-                <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
+              <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
+
                 <p className="text-gray-700">{data.weather}</p>
                 {/* Add the city name here */}
                 <p className="text-gray-700 ml-2">{data.name}</p>
@@ -94,6 +95,7 @@ function App() {
               <p className="text-gray-700 humidity">Humidity: {data.humidity}%</p>
               <p className="text-gray-700">Wind Speed: {data.windSpeed} m/s</p>
               <p className="text-gray-700">Traffic: {data.traffic}</p>
+      
             </div>
           ))}
         </div>
