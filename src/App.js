@@ -83,12 +83,12 @@ function App() {
           {cityData.map((data, index) => (
             <div key={index} className="weather-card">
               <h2 className="text-lg font-bold mb-2">{data.name}</h2>
-              {/* Display the city name next to the weather information */}
+      
               <div className="flex items-center justify-center">
               <img src={`https://openweathermap.org/img/wn/${data.weather.icon}.png`} alt="Weather Icon" className="weather-icon" />
 
                 <p className="text-gray-700">{data.weather}</p>
-                {/* Add the city name here */}
+               
                 <p className="text-gray-700 ml-2">{data.name}</p>
               </div>
               <p className="text-gray-700 temperature">Temperature: {data.temperature}°C</p>
